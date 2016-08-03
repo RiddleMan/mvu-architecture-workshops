@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "todomvc-app-css": "^2.0.6"
+  "dependencies": {
+    "redux": "^3.5.2",
+    "todomvc-app-css": "^2.0.6",
+    "todomvc-common": "^1.0.2",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.1"
   }
 }
