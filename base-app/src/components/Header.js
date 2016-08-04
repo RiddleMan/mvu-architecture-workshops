@@ -1,7 +1,7 @@
 var $ = require('jquery');
 
-function Header(el, props) {
-  var nextProps = props;
+function Header(nextProps) {
+  var props = {};
   var prevProps;
   var $el;
   var $input;
@@ -10,12 +10,20 @@ function Header(el, props) {
   function onKeyUp(e) {
     if(event.which === 13) {
       event.preventDefault();
-      console.log(e.target.value);
+      props.addTodo(e.target.value);
+      $input.val('');
     }
   }
 
   function onToggle() {
-    
+    props.toggleAll();
+  }
+
+  function render(nextProps) {
+    prevProps = props;
+    props = nextProps;
+
+    $toggleAll.prop('checked', props.isToggled);
   }
 
   (function init() {
@@ -32,14 +40,13 @@ function Header(el, props) {
 
     $input.on('keyup', onKeyUp);
     $toggleAll.on('change', onToggle);
+
+    render(nextProps);
   }());
 
   return {
     el: $el,
-    render: function(nextProps) {
-      prevProps = props;
-      props = nextProps;
-    },
+    render: render,
     destroy: function() {
       $el.remove();
     }

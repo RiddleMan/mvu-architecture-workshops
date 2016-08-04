@@ -1,29 +1,43 @@
 var $ = require('jquery');
+var Header = require('../components/Header');
+var store = require('../store');
+var redux = require('redux');
+var actions = require('../actions');
 
-module.exports = function Root(el) {
-  var prevProps = props;
+module.exports = function Root() {
   var $el;
   var $btn;
   var $counter;
+  var headerComponent;
+
+  function getHeaderProps() {
+    var bindedActions = redux.bindActionCreators({
+      addTodo: actions.addTodo,
+      toggleAll: actions.toggleAll
+    }, store.dispatch);
+    var state = store.getState();
+
+    return {
+      addTodo: bindedActions.addTodo,
+      toggleAll: bindedActions.toggleAll,
+      isToggled: state.isToggled
+    };
+  }
 
   (function init() {
-    $el = $(
-      '<div>' +
-        '<button>Click me!</div>' +
-        '<h1>' + props.counter + '</div>' +
-      '</div>'
-    );
+    headerComponent = Header(getHeaderProps());
 
-    $counter = $el.find('h1');
-    $btn = $el.find('button');
+    $el = $('<div></div>');
+    $el.append(headerComponent.el);
+
+    store.subscribe(function() {
+      headerComponent.render(getHeaderProps());
+    })
   }());
 
   return {
-    el: $el,
-    render: function() {
-
-    }
-  }
+    el: $el
+  };
 };
 
 /*
