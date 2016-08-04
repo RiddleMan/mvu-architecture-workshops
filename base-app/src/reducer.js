@@ -1,5 +1,5 @@
 var $ = require('jquery');
-var actions = require('../actions');
+var actions = require('./actions');
 var ADD_TODO = actions.ADD_TODO;
 var TOGGLE_ALL = actions.TOGGLE_ALL;
 var DELETE_TODO = actions.DELETE_TODO;

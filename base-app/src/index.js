@@ -1,4 +1,4 @@
-var Root = require('./containers/Root');
+var Root = require('./Root');
 var $ = require('jquery');
 
 $('.todoapp').append(Root().el);

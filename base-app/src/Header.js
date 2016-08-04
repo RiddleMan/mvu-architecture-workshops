@@ -53,10 +53,4 @@ function Header(nextProps) {
   }
 };
 
-/*
-  Parent > Child.render
-
-  Parent decyduje o usunięciu
- */
-
 module.exports = Header;

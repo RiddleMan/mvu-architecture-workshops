@@ -1,8 +1,8 @@
 var $ = require('jquery');
-var Header = require('../components/Header');
-var store = require('../store');
+var Header = require('./Header');
+var store = require('./store');
 var redux = require('redux');
-var actions = require('../actions');
+var actions = require('./actions');
 
 module.exports = function Root() {
   var $el;
