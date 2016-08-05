@@ -12,7 +12,8 @@ var initialState = {
   todos: [],
   todosByFilter: [],
   filter: FILTER_TYPES.ALL,
-  isToggled: true
+  isToggled: true,
+  activeTodosCount: 0
 };
 
 function filterTodos(todos, filter) {
@@ -28,6 +29,8 @@ function filterTodos(todos, filter) {
 
 function reducer(state, action) {
   var todos;
+  var activeTodosCount;
+
   if(state === undefined)
     state = initialState;
 
@@ -41,7 +44,8 @@ function reducer(state, action) {
 
       return $.extend({}, state, {
         todos: todos,
-        todosByFilter: filterTodos(todos, state.filter)
+        todosByFilter: filterTodos(todos, state.filter),
+        activeTodosCount: state.activeTodosCount + 1
       });
 
     case TOGGLE_ALL:
@@ -51,10 +55,15 @@ function reducer(state, action) {
         });
       });
 
+      activeTodosCount = todos.filter(function(todo) {
+        return !todo.isCompleted;
+      }).length;
+
       return $.extend({}, state, {
         todos: todos,
         todosByFilter: filterTodos(todos, state.filter),
-        isToggled: !state.isToggled
+        isToggled: !state.isToggled,
+        activeTodosCount: activeTodosCount
       });
 
     case DELETE_TODO:
@@ -62,9 +71,14 @@ function reducer(state, action) {
         return action.id !== idx;
       });
 
+      activeTodosCount = todos.filter(function(todo) {
+        return !todo.isCompleted;
+      }).length;
+
       return $.extend({}, state, {
         todos: todos,
-        todosByFilter: filterTodos(todos, state.filter)
+        todosByFilter: filterTodos(todos, state.filter),
+        activeTodosCount: activeTodosCount
       });
 
     case TOGGLE_COMPLETE:
@@ -77,9 +91,14 @@ function reducer(state, action) {
         });
       });
 
+      activeTodosCount = todos.filter(function(todo) {
+        return !todo.isCompleted;
+      }).length;
+
       return $.extend({}, state, {
         todos: todos,
-        todosByFilter: filterTodos(todos, state.filter)
+        todosByFilter: filterTodos(todos, state.filter),
+        activeTodosCount: activeTodosCount
       });
 
     case CHANGE_FILTER:
