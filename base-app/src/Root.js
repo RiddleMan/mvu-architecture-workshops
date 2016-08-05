@@ -1,5 +1,6 @@
 var $ = require('jquery');
 var Header = require('./Header');
+var List = require('./TodoList');
 var store = require('./store');
 var redux = require('redux');
 var actions = require('./actions');
@@ -9,12 +10,16 @@ module.exports = function Root() {
   var $btn;
   var $counter;
   var headerComponent;
+  var listComponent;
+
+  var bindedActions = redux.bindActionCreators({
+    addTodo: actions.addTodo,
+    toggleAll: actions.toggleAll,
+    deleteTodo: actions.deleteTodo,
+    toggleComplete: actions.toggleComplete
+  }, store.dispatch);
 
   function getHeaderProps() {
-    var bindedActions = redux.bindActionCreators({
-      addTodo: actions.addTodo,
-      toggleAll: actions.toggleAll
-    }, store.dispatch);
     var state = store.getState();
 
     return {
@@ -24,14 +29,27 @@ module.exports = function Root() {
     };
   }
 
+  function getListProps() {
+    var state = store.getState();
+
+    return {
+      deleteTodo: bindedActions.deleteTodo,
+      toggleComplete: bindedActions.toggleComplete,
+      todos: state.todosByFilter
+    };
+  }
+
   (function init() {
     headerComponent = Header(getHeaderProps());
+    listComponent = List(getListProps());
 
     $el = $('<div></div>');
     $el.append(headerComponent.el);
+    $el.append(listComponent.el);
 
     store.subscribe(function() {
       headerComponent.render(getHeaderProps());
+      listComponent.render(getListProps());
     })
   }());
 
