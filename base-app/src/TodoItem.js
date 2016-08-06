@@ -33,6 +33,13 @@ function TodoItem(nextProps) {
     props.changeName(e.target.value);
   }
 
+  function onKeyUp(e) {
+    if(event.which === 13) {
+      event.preventDefault();
+      onNameEditSave(e);
+    }
+  }
+
   function onDestroy() {
     props.deleteTodo();
   }
@@ -62,6 +69,7 @@ function TodoItem(nextProps) {
     $remove.on('click', onDestroy);
     $text.dblclick(onNameEditEnabled);
     $editInput.blur(onNameEditSave);
+    $editInput.on('keyup', onKeyUp);
 
     render(nextProps);
   }());
