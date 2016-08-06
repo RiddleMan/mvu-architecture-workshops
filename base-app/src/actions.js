@@ -51,6 +51,11 @@ function changeName(id, name) {
 }
 
 function changeFilter(filter) {
+  if(filter !== FILTER_TYPES.ALL
+    && filter !== FILTER_TYPES.ACTIVE
+    && filter !== FILTER_TYPES.COMPLETED)
+    throw new Error('Filter need to be a one of `FILTER_TYPES`');
+
   return {
     type: CHANGE_FILTER,
     filter: filter
