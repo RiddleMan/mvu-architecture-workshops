@@ -7,14 +7,30 @@ function TodoItem(nextProps) {
   var $toggler;
   var $text;
   var $remove;
+  var $editInput;
+
+  //local state
+  var isEditing = false;
 
   function render(nextProps) {
     prevProps = props;
     props = nextProps;
 
+    $el.toggleClass('editing', isEditing);
     $el.toggleClass('completed', props.isCompleted);
     $toggler.prop('checked', props.isCompleted);
     $text.html(props.name);
+    $editInput.val(props.name);
+  }
+
+  function onNameEditEnabled() {
+    isEditing = true;
+    render(props);
+    $editInput.focus();
+  }
+
+  function onNameEditSave(e) {
+    props.changeName(e.target.value);
   }
 
   function onDestroy() {
@@ -33,15 +49,19 @@ function TodoItem(nextProps) {
           '<label></label>' +
           '<button class="destroy"></button>' +
         '</div>' +
+        '<input class="edit">' +
       '</li>'
     );
 
     $toggler = $el.find('.toggle');
     $text = $el.find('label');
     $remove = $el.find('.destroy');
+    $editInput = $el.find('.edit');
 
     $toggler.on('click', onToggle);
     $remove.on('click', onDestroy);
+    $text.dblclick(onNameEditEnabled);
+    $editInput.blur(onNameEditSave);
 
     render(nextProps);
   }());

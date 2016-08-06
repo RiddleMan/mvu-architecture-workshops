@@ -4,6 +4,7 @@ var ADD_TODO = actions.ADD_TODO;
 var TOGGLE_ALL = actions.TOGGLE_ALL;
 var DELETE_TODO = actions.DELETE_TODO;
 var TOGGLE_COMPLETE = actions.TOGGLE_COMPLETE;
+var CHANGE_NAME = actions.CHANGE_NAME;
 var CHANGE_FILTER = actions.CHANGE_FILTER;
 var CLEAR_COMPLETED = actions.CLEAR_COMPLETED;
 var FILTER_TYPES = actions.FILTER_TYPES;
@@ -100,6 +101,22 @@ function reducer(state, action) {
         todosByFilter: filterTodos(todos, state.filter),
         activeTodosCount: activeTodosCount
       });
+
+    case CHANGE_NAME:
+      todos = state.todos.map(function(todo, idx) {
+        if(action.id !== idx)
+          return todo;
+
+        return $.extend({}, todo, {
+          name: action.name
+        });
+      });
+
+      return $.extend({}, state, {
+        todos: todos,
+        todosByFilter: filterTodos(todos, state.filter)
+      });
+
 
     case CHANGE_FILTER:
       return $.extend({}, state, {

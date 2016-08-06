@@ -22,6 +22,7 @@ function TodoList(nextProps) {
       return TodoItem({
         deleteTodo: props.deleteTodo.bind(null, idx),
         toggleComplete: props.toggleComplete.bind(null, idx),
+        changeName: props.changeName.bind(null, idx),
         name: todo.name,
         isCompleted: todo.isCompleted
       });

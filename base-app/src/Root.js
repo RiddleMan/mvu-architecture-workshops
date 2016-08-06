@@ -20,7 +20,8 @@ module.exports = function Root() {
     deleteTodo: actions.deleteTodo,
     toggleComplete: actions.toggleComplete,
     changeFilter: actions.changeFilter,
-    clearCompleted: actions.clearCompleted
+    clearCompleted: actions.clearCompleted,
+    changeName: actions.changeName
   }, store.dispatch);
 
   function getHeaderProps() {
@@ -39,6 +40,7 @@ module.exports = function Root() {
     return {
       deleteTodo: bindedActions.deleteTodo,
       toggleComplete: bindedActions.toggleComplete,
+      changeName: bindedActions.changeName,
       todos: state.todosByFilter
     };
   }

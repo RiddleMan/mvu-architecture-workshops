@@ -2,6 +2,7 @@ var ADD_TODO = 'ADD_TODO';
 var TOGGLE_ALL = 'TOGGLE_ALL';
 var DELETE_TODO = 'DELETE_TODO';
 var TOGGLE_COMPLETE = 'TOGGLE_COMPLETE';
+var CHANGE_NAME = 'CHANGE_NAME';
 var CHANGE_FILTER = 'CHANGE_FILTER';
 var CLEAR_COMPLETED = 'CLEAR_COMPLETED';
 
@@ -38,6 +39,17 @@ function toggleComplete(id) {
   };
 }
 
+function changeName(id, name) {
+  if(!name)
+    return deleteTodo(id);
+
+  return {
+    type: CHANGE_NAME,
+    id: id,
+    name: name
+  };
+}
+
 function changeFilter(filter) {
   return {
     type: CHANGE_FILTER,
@@ -58,12 +70,14 @@ module.exports = {
   toggleComplete: toggleComplete,
   changeFilter: changeFilter,
   clearCompleted: clearCompleted,
+  changeName: changeName,
 
   FILTER_TYPES: FILTER_TYPES,
   ADD_TODO: ADD_TODO,
   TOGGLE_ALL: TOGGLE_ALL,
   DELETE_TODO: DELETE_TODO,
   TOGGLE_COMPLETE: TOGGLE_COMPLETE,
+  CHANGE_NAME: CHANGE_NAME,
   CHANGE_FILTER: CHANGE_FILTER,
   CLEAR_COMPLETED: CLEAR_COMPLETED
 };
