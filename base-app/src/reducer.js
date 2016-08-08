@@ -1,5 +1,6 @@
 var $ = require('jquery');
 var actions = require('./actions');
+
 var ADD_TODO = actions.ADD_TODO;
 var TOGGLE_ALL = actions.TOGGLE_ALL;
 var DELETE_TODO = actions.DELETE_TODO;
@@ -16,6 +17,12 @@ var initialState = {
   isToggled: true,
   activeTodosCount: 0
 };
+
+function calcActiveCount(todos) {
+  return todos.filter(function(todo) {
+    return !todo.isCompleted;
+  }).length;
+}
 
 function filterTodos(todos, filter) {
   if(filter === FILTER_TYPES.ALL)
@@ -56,15 +63,11 @@ function reducer(state, action) {
         });
       });
 
-      activeTodosCount = todos.filter(function(todo) {
-        return !todo.isCompleted;
-      }).length;
-
       return $.extend({}, state, {
         todos: todos,
         todosByFilter: filterTodos(todos, state.filter),
         isToggled: !state.isToggled,
-        activeTodosCount: activeTodosCount
+        activeTodosCount: calcActiveCount(todos)
       });
 
     case DELETE_TODO:
@@ -72,14 +75,10 @@ function reducer(state, action) {
         return action.id !== idx;
       });
 
-      activeTodosCount = todos.filter(function(todo) {
-        return !todo.isCompleted;
-      }).length;
-
       return $.extend({}, state, {
         todos: todos,
         todosByFilter: filterTodos(todos, state.filter),
-        activeTodosCount: activeTodosCount
+        activeTodosCount: calcActiveCount(todos)
       });
 
     case TOGGLE_COMPLETE:
@@ -92,14 +91,10 @@ function reducer(state, action) {
         });
       });
 
-      activeTodosCount = todos.filter(function(todo) {
-        return !todo.isCompleted;
-      }).length;
-
       return $.extend({}, state, {
         todos: todos,
         todosByFilter: filterTodos(todos, state.filter),
-        activeTodosCount: activeTodosCount
+        activeTodosCount: calcActiveCount(todos)
       });
 
     case CHANGE_NAME:
