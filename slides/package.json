@@ -7,7 +7,7 @@
     "clean": "rimraf dist",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.production.js",
     "lint": "eslint --ext .js,.jsx .",
-    "deploy": "npm run clean & npm run build && surge -p .",
+    "deploy": "npm run clean & npm run build && surge -d docker-dev-meeting.surge.sh -p .",
     "start": "cross-env NODE_ENV=development node server.js"
   },
   "author": "",
@@ -16,7 +16,8 @@
     "normalize.css": "3.0.3",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
-    "spectacle": "^1.0.0"
+    "spectacle": "^1.0.0",
+    "spectacle-code-slide": "^0.3.1"
   },
   "devDependencies": {
     "autoprefixer-core": "^6.0.1",

@@ -159,4 +159,63 @@ describe('reducer()', function() {
       expect(actual.activeTodosCount).to.be.not.equal(state.activeTodosCount);
     });
   });
+
+  describe('DELETE_TODO', function() {
+    it('should delete element with specified id/index', function() {
+      var action = {
+        type: DELETE_TODO,
+        id: 1
+      };
+      var state = {
+        todos: [{isCompleted: true}, {isCompleted: true}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ALL,
+        isToggled: true,
+        activeTodosCount: 0
+      }
+
+      var actual = reducer(state, action);
+
+      expect(actual.todos).to.be.deep.equal([{isCompleted: true}]);
+    });
+
+    it('should not rmeove when there is no todo with specified `id`', function() {
+      var action = {
+        type: DELETE_TODO,
+        id: 10
+      };
+      var state = {
+        todos: [],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ALL,
+        isToggled: true,
+        activeTodosCount: 0
+      }
+
+      var actual = reducer(state, action);
+
+      expect(actual.todos).to.be.deep.equal([]);
+    });
+
+    it('should change references of all changed objects', function() {
+      var action = {
+        type: DELETE_TODO,
+        id: 1
+      };
+      var state = {
+        todos: [{isCompleted: true}, {isCompleted: true}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ALL,
+        isToggled: true,
+        activeTodosCount: 0
+      }
+
+      var actual = reducer(state, action);
+
+      expect(actual).to.be.not.equal(state);
+      expect(actual.todos).to.be.not.equal(state.todos);
+      expect(actual.todos[0]).to.be.equal(state.todos[0]);
+      expect(actual.activeTodosCount).to.be.equal(state.activeTodosCount);
+    });
+  });
 });
