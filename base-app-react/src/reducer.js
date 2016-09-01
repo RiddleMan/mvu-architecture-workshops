@@ -14,7 +14,7 @@ var initialState = {
   todos: [],
   todosByFilter: [],
   filter: FILTER_TYPES.ALL,
-  isToggled: true,
+  isToggled: false,
   activeTodosCount: 0
 };
 

@@ -56,7 +56,7 @@ class TodoItem extends React.Component {
       <li className={className}>
         <div className="view">
           <input
-            value={this.props.isCompleted}
+            checked={this.props.isCompleted}
             onClick={this.onToggle.bind(this)}
             className="toggle"
             type="checkbox" />
