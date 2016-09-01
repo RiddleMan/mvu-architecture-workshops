@@ -3,10 +3,7 @@ var ReactDom = require('react-dom');
 var Header = require('./Header');
 var List = require('./TodoList');
 var Footer = require('./Footer');
-var store = require('./store');
-var redux = require('redux');
 var reactRedux = require('react-redux');
-var Provider = reactRedux.Provider;
 var connect = reactRedux.connect;
 
 var actions = require('./actions');
@@ -17,17 +14,17 @@ function Root(props) {
       <Header
         addTodo={props.addTodo}
         toggleAll={props.toggleAll}
-        isToggled={props.isToggled} />
+        isToggled={props.state.isToggled} />
       <List
         deleteTodo={props.deleteTodo}
         toggleComplete={props.toggleComplete}
         changeName={props.changeName}
-        todos={props.todosByFilter} />
+        todos={props.state.todosByFilter} />
       <Footer
         changeFilter={props.changeFilter}
         clearCompleted={props.clearCompleted}
-        activeTodosCount={props.activeTodosCount}
-        filter={props.filter} />
+        activeTodosCount={props.state.activeTodosCount}
+        filter={props.state.filter} />
     </div>
   );
 }
@@ -47,9 +44,4 @@ Root = connect(mapStateToProps, {
   changeName: actions.changeName
 })(Root);
 
-ReactDom.render(
-  <Provider store={store}>
-    <Root />
-  </Provider>,
-  document.querySelector('.todoapp')
-);
+module.exports = Root;

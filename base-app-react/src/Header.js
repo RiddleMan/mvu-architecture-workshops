@@ -33,14 +33,15 @@ class Header extends React.Component {
       <header className="header">
         <h1>todos</h1>
         <input
+          value={this.state.value}
           onChange={this.onInputChange.bind(this)}
           onKeyUp={this.onKeyUp.bind(this)}
           className="new-todo"
-          placeholder="What needs to be done?">
+          placeholder="What needs to be done?" />
         <input
           value={this.props.isToggled}
           onChange={this.onToggle.bind(this)}
-          className="toggle-all" type="checkbox">
+          className="toggle-all" type="checkbox" />
       </header>
     )
   }

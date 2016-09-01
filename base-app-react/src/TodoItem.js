@@ -1,85 +1,81 @@
-var $ = require('jquery');
+var React = require('react');
 
-function TodoItem(nextProps) {
-  var props = {};
-  var prevProps;
-  var $el;
-  var $toggler;
-  var $text;
-  var $remove;
-  var $editInput;
+class TodoItem extends React.Component {
+  constructor(props) {
+    super(props);
 
-  //local state
-  var isEditing = false;
-
-  function render(nextProps) {
-    prevProps = props;
-    props = nextProps;
-
-    $el.toggleClass('editing', isEditing);
-    $el.toggleClass('completed', props.isCompleted);
-    $toggler.prop('checked', props.isCompleted);
-    $text.html(props.name);
-    $editInput.val(props.name);
+    this.state = {
+      isEditing: false,
+      value: ''
+    };
   }
 
-  function onNameEditEnabled() {
-    isEditing = true;
-    render(props);
-    $editInput.focus();
+  onNameEditEnabled() {
+    this.setState({
+      isEditing: true,
+      value: this.props.name
+    });
+    setTimeout(function() {
+      this.editInput.focus();
+    }.bind(this), 10);
   }
 
-  function onNameEditSave(e) {
-    props.changeName(e.target.value);
+  onNameEditSave(e) {
+    this.props.changeName(e.target.value);
+    this.setState({
+      isEditing: false
+    });
   }
 
-  function onKeyUp(e) {
-    if(event.which === 13) {
-      event.preventDefault();
-      onNameEditSave(e);
+  onKeyUp(e) {
+    if(e.which === 13) {
+      e.preventDefault();
+      this.onNameEditSave(e);
     }
   }
 
-  function onDestroy() {
-    props.deleteTodo();
+  onEditChange(e) {
+    this.setState({
+      value: e.target.value
+    });
   }
 
-  function onToggle() {
-    props.toggleComplete();
+  onDestroy() {
+    this.props.deleteTodo();
   }
 
-  (function init() {
-    $el = $(
-      '<li>' +
-        '<div class="view">' +
-          '<input class="toggle" type="checkbox">' +
-          '<label></label>' +
-          '<button class="destroy"></button>' +
-        '</div>' +
-        '<input class="edit">' +
-      '</li>'
+  onToggle() {
+    this.props.toggleComplete();
+  }
+
+  render() {
+    var className = (this.state.isEditing ? 'editing' : '') + ' ' +
+      (this.props.isCompleted ? 'completed' : '');
+
+    return (
+      <li className={className}>
+        <div className="view">
+          <input
+            value={this.props.isCompleted}
+            onClick={this.onToggle.bind(this)}
+            className="toggle"
+            type="checkbox" />
+          <label
+            onDoubleClick={this.onNameEditEnabled.bind(this)}>
+            {this.props.name}</label>
+          <button
+            onClick={this.onDestroy.bind(this)}
+            className="destroy"></button>
+        </div>
+        <input
+          onChange={this.onEditChange.bind(this)}
+          value={this.state.value}
+          ref={function(r) { this.editInput = r; }.bind(this)}
+          onBlur={this.onNameEditSave.bind(this)}
+          onKeyUp={this.onKeyUp.bind(this)}
+          className="edit" />
+      </li>
     );
-
-    $toggler = $el.find('.toggle');
-    $text = $el.find('label');
-    $remove = $el.find('.destroy');
-    $editInput = $el.find('.edit');
-
-    $toggler.on('click', onToggle);
-    $remove.on('click', onDestroy);
-    $text.dblclick(onNameEditEnabled);
-    $editInput.blur(onNameEditSave);
-    $editInput.on('keyup', onKeyUp);
-
-    render(nextProps);
-  }());
-
-  return {
-    el: $el,
-    render: render,
-    destroy: function() {
-      $el.remove();
-    }
   }
 }
 

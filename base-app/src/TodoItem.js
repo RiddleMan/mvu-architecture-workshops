@@ -34,8 +34,8 @@ function TodoItem(nextProps) {
   }
 
   function onKeyUp(e) {
-    if(event.which === 13) {
-      event.preventDefault();
+    if(e.which === 13) {
+      e.preventDefault();
       onNameEditSave(e);
     }
   }

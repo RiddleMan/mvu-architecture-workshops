@@ -30,20 +30,20 @@ function Footer(props) {
       <ul className="filters">
         <li
           onClick={onFilter.bind(null, FILTER_TYPES.ALL)}
-          className={filterAllClassName}>
-          <a href="#/">All</a>
+          className="filter-all">
+          <a className={filterAllClassName} href="#/">All</a>
         </li>
         <span> </span>
         <li
           onClick={onFilter.bind(null, FILTER_TYPES.ACTIVE)}
-          className={filterActiveClassName}>
-          <a href="#/active">Active</a>
+          className="filter-active">
+          <a className={filterActiveClassName} href="#/active">Active</a>
         </li>
         <span> </span>
         <li
           onClick={onFilter.bind(null, FILTER_TYPES.COMPLETED)}
-          className={filterCompletedClassName}>
-          <a href="#/completed">Completed</a>
+          className="filter-completed">
+          <a className={filterCompletedClassName} href="#/completed">Completed</a>
         </li>
       </ul>
       <button
