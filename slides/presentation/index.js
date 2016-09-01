@@ -223,16 +223,29 @@ export default class Presentation extends React.Component {
             ]}
           />
 
+          <Slide bgColor="white">
+            <Image width="80%" src={images.mapFilterReduce} />
+          </Slide>
+
           <Slide notes="">
             <Heading size={1} fit caps textColor="white">FIRST</Heading>
             <Heading size={1} fit caps textColor="white">EXERCISE</Heading>
           </Slide>
 
-          <Slide bgColor="white">
-            <Image width="80%" src={images.mapFilterReduce} />
-          </Slide>
-
           <Slide bgColor="white" bgImage={images.pipes} />
+
+          <Slide notes="">
+            <Heading size={1} caps textColor="white">MOAR!</Heading>
+            <List>
+              <Appear><ListItem>Monad</ListItem></Appear>
+              <Appear><ListItem>"immutable auto-curried iteratee-first data-last methods" lodash</ListItem></Appear>
+              <Appear><ListItem>Pattern matching</ListItem></Appear>
+              <Appear><ListItem>Currying</ListItem></Appear>
+              <Appear><ListItem>Recursion</ListItem></Appear>
+              <Appear><ListItem>First-class function</ListItem></Appear>
+              <Appear><ListItem>Higher-order function</ListItem></Appear>
+            </List>
+          </Slide>
         </Deck>
       </Spectacle>
     );
