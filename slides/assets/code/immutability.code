@@ -1,0 +1,68 @@
+var no1 = 3;
+var no2 = no1;
+
+no1 === no2; //true
+no1 = 4
+no1 === no2; //false
+
+
+
+
+
+
+
+
+
+
+
+
+var animal1 = {
+  name: 'Duck'
+};
+var animal2 = animal1;
+
+animal1 === animal2; //true
+animal1.name = 'Holy cow!';
+animal1 === animal2; //true
+
+
+
+
+
+
+
+
+
+
+
+
+
+var animal1 = {
+  name: 'Duck'
+};
+var animal2 = animal1;
+
+animal1 === animal2; //true
+animal1 = Object.assign({}, animal1, {
+  name: 'Holy cow!'
+});
+animal1 === animal2; //false
+
+
+
+
+
+
+
+
+/*
+
+
+
+
+
+
+
+
+
+ */

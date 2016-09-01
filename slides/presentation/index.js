@@ -35,7 +35,9 @@ require("spectacle/lib/themes/default/index.css");
 const images = {
   cover: require("../assets/images/cover.jpg"),
   hammer: require("../assets/images/hammer.jpg"),
-  screwdriver: require("../assets/images/screwdriver.jpg")
+  screwdriver: require("../assets/images/screwdriver.jpg"),
+  mapFilterReduce: require("../assets/images/map-filter-reduce-emoji.png"),
+  pipes: require("../assets/images/pipes-analogy.jpg")
 };
 
 preloader(images);
@@ -75,7 +77,7 @@ export default class Presentation extends React.Component {
               <Appear><ListItem>Learn how to split code</ListItem></Appear>
               <Appear><ListItem>Learn why structure of code is so important</ListItem></Appear>
               <Appear><ListItem>Learn basics of functional programming</ListItem></Appear>
-              <Appear><ListItem>Learn pretty and shinny architecture: Flux</ListItem></Appear>
+              <Appear><ListItem>Learn pretty and shinny architecture: Flux 🌟</ListItem></Appear>
             </List>
           </Slide>
 
@@ -134,6 +136,10 @@ export default class Presentation extends React.Component {
             <Appear>
               <Heading size={5} textColor="white" padding="70px 0 0 0">is not that hard :)</Heading>
             </Appear>
+          </Slide>
+
+          <Slide notes="">
+            <Heading size={1} textSize="33vh" textColor="white" textFont="cursive">f(x)</Heading>
           </Slide>
 
           <Slide notes="">
@@ -196,9 +202,37 @@ export default class Presentation extends React.Component {
 
               { loc: [194, 206] },
               { loc: [194, 206], title: "IT DEPENDS" },
-              { loc: [194, 206], title: "IT DEPENDS", note: "Concat is pure, but inner function is not" },
+              { loc: [194, 206], title: "IT DEPENDS", note: "Concat is pure, but inner function is not" }
             ]}
           />
+
+          <Slide notes="">
+            <Heading size={1} fit caps textColor="white">Immutability</Heading>
+          </Slide>
+
+          <CodeSlide
+            transition={[]}
+            lang="js"
+            code={require("raw!../assets/code/immutability.code")}
+            ranges={[
+              { loc: [0, 6], title: "PRIMITIVES" },
+
+              { loc: [18, 26], title: "MUTATION" },
+
+              { loc: [39, 49], title: "IMMUTABLE" }
+            ]}
+          />
+
+          <Slide notes="">
+            <Heading size={1} fit caps textColor="white">FIRST</Heading>
+            <Heading size={1} fit caps textColor="white">EXERCISE</Heading>
+          </Slide>
+
+          <Slide bgColor="white">
+            <Image width="80%" src={images.mapFilterReduce} />
+          </Slide>
+
+          <Slide bgColor="white" bgImage={images.pipes} />
         </Deck>
       </Spectacle>
     );
