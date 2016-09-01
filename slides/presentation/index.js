@@ -3,6 +3,7 @@ import React from "react";
 
 // Import Spectacle Core tags
 import {
+  Link,
   Appear,
   CodePane,
   Deck,
@@ -11,7 +12,12 @@ import {
   ListItem,
   List,
   Slide,
-  Spectacle
+  Spectacle,
+  Table,
+  TableRow,
+  TableItem,
+  Fit,
+  Text
 } from "spectacle";
 import CodeSlide from "spectacle-code-slide";
 
@@ -27,8 +33,9 @@ require("spectacle/lib/themes/default/index.css");
 
 
 const images = {
-  dockerLogo: require("../assets/moby.svg"),
-  sampleApp: require("../assets/sample-app.png")
+  cover: require("../assets/images/cover.jpg"),
+  hammer: require("../assets/images/hammer.jpg"),
+  screwdriver: require("../assets/images/screwdriver.jpg")
 };
 
 preloader(images);
@@ -41,207 +48,157 @@ export default class Presentation extends React.Component {
   render() {
     return (
       <Spectacle theme={theme}>
-        <Deck transition={["slide"]} transitionDuration={500} progress="number">
-          <Slide notes="Kontenerowiec">
-            <Image src={images.dockerLogo.replace("/", "")} margin="0px auto 40px" height="293px"/>
-            <Heading size={1} caps textColor="white">
-              Docker
+        <Deck transition={["slide"]} transitionDuration={500} progress="none">
+          <Slide bgImage={images.cover} notes="tell about that is your opinion dumbass. Some things will be obvious">
+            <Heading size={1} fit caps>
+              MVU Architecture
             </Heading>
-            <Heading size={4} caps textColor="white">
+            <Heading size={4} caps textAlign="left" textColor="white">
+              workshops
+            </Heading>
+            <Heading size={4} caps textAlign="left" textColor="white">
               Artur Ptaszek
             </Heading>
-            <Heading size={6} caps textColor="white">
+            <Heading size={6} caps textAlign="left" textColor="white">
               @Synergy Codes
             </Heading>
-            <Heading size={6} textColor="white">
-              29.08.2016r.
+            <Heading size={6} textAlign="left" textColor="white">
+              17.09.2016r.
             </Heading>
           </Slide>
 
-          <Slide notes="Lekka linuxowa wirtualizacja (windows hyper-v), ">
+          <Slide notes="">
             <Heading size={1} caps>
-              What is Docker?
+              What's our today achievement?
             </Heading>
             <List>
-              <Appear><ListItem>Linux based/Windows Server Core</ListItem></Appear>
-              <Appear><ListItem>Light Virtualization Technology</ListItem></Appear>
-              <Appear><ListItem>Container solution</ListItem></Appear>
-              <Appear><ListItem>Works on Linux, OS X, Windows</ListItem></Appear>
+              <Appear><ListItem>Learn how to split code</ListItem></Appear>
+              <Appear><ListItem>Learn why structure of code is so important</ListItem></Appear>
+              <Appear><ListItem>Learn basics of functional programming</ListItem></Appear>
+              <Appear><ListItem>Learn pretty and shinny architecture: Flux</ListItem></Appear>
             </List>
           </Slide>
 
-          <Slide>
+          <Slide notes="">
             <Heading size={1} caps>
-              Why?
+              What's our today achievement?
             </Heading>
-            <List>
-              <Appear><ListItem>DevOps</ListItem></Appear>
-              <Appear><ListItem>Microservices</ListItem></Appear>
-              <Appear><ListItem>Lighter than VM</ListItem></Appear>
-              <Appear><ListItem>"Production" infrastructure on your computer</ListItem></Appear>
-            </List>
+            <Link target="_blank" href="http://todomvc.com">
+              <Heading size={3} caps>
+                TODO MVC
+              </Heading>
+            </Link>
           </Slide>
 
-          <Slide>
-            <Heading size={1} caps>
-              Docker tools
+          <Slide notes="">
+            <Heading size={1} caps fill>
+              What is a good architecture?
             </Heading>
-            <List>
-              <Appear><ListItem>Docker Hub</ListItem></Appear>
-              <Appear><ListItem>Docker Machine</ListItem></Appear>
-              <Appear><ListItem>Docker Compose</ListItem></Appear>
-              <Appear><ListItem>Docker Swarm</ListItem></Appear>
-              <Appear><ListItem>Docker Toolbox</ListItem></Appear>
-              <Appear><ListItem>Docker Cloud</ListItem></Appear>
-            </List>
           </Slide>
 
-          <Slide>
-            <Heading size={1} caps>
-              THE APP
-            </Heading>
-            <Image src={images.sampleApp.replace("/", "")} margin="0px auto 40px" height="500px"/>
+          <Slide notes="nails">
+            <Heading size={1} caps>Right tool to job</Heading>
+            <Table>
+              <TableRow>
+                <TableItem><Appear><Image width="400px" src={images.hammer}/></Appear></TableItem>
+                <TableItem><Heading size={3}>vs</Heading></TableItem>
+                <TableItem><Appear><Image width="400px" src={images.screwdriver}/></Appear></TableItem>
+              </TableRow>
+            </Table>
           </Slide>
 
-          <Slide>
-            <Heading size={1} caps>
-              THE APP
-            </Heading>
-            <List>
-              <Appear><ListItem>Frontend: ReactJS</ListItem></Appear>
-              <Appear><ListItem>Backend: NodeJS</ListItem></Appear>
-              <Appear><ListItem>DB: Mongo + maybe ElasticSearch</ListItem></Appear>
-            </List>
+          <Slide notes="">
+            <Heading size={1} fit caps>Reduces a risk</Heading>
           </Slide>
 
-          <Slide>
-            <Heading size={1} caps>
-              THE APP
-            </Heading>
-            <Heading size={3} textColor="white">
-              problems
-            </Heading>
-            <List>
-              <Appear><ListItem>How to deploy to Cloud?</ListItem></Appear>
-              <Appear><ListItem>How to debug "production" environment?</ListItem></Appear>
-              <Appear><ListItem>How to scale?</ListItem></Appear>
-              <Appear><ListItem>What if I want to create microservices?</ListItem></Appear>
-              <Appear><ListItem>What if I have already built base environment?</ListItem></Appear>
-            </List>
+          <Slide notes="">
+            <Heading size={1} fit caps>Flexible</Heading>
           </Slide>
 
-          <Slide>
-            <Heading size={1} caps>
-              THE APP
-            </Heading>
-            <Heading size={3} textColor="white">
-              structure
-            </Heading>
-            <CodePane source={`
-              client/Dockerfile
-              client/.dockerignore
-              server/Dockerfile
-              server/.dockerignore
-              docker-compose.yml
-            `}
-            />
+          <Slide notes="">
+            <Heading size={1} fit caps>Testable</Heading>
+          </Slide>
+
+          <Slide notes="">
+            <Heading size={1} fit caps>EASY!!</Heading>
+          </Slide>
+
+          <Slide notes="">
+            <Heading size={1} caps><span>{"and... "}</span></Heading>
+            <Heading size={3} fit caps textColor="white"><Appear><span>even EASIER!!</span></Appear></Heading>
+          </Slide>
+
+          <Slide notes="">
+            <Heading size={3} fit caps textColor="white">Functional</Heading>
+            <Heading size={3} fit caps textColor="white">programming</Heading>
+            <Appear>
+              <Heading size={5} textColor="white" padding="70px 0 0 0">is not that hard :)</Heading>
+            </Appear>
+          </Slide>
+
+          <Slide notes="">
+            <Heading size={1} fit caps textColor="white">State</Heading>
+            <Appear>
+              <Heading size={5} textColor="white" padding="70px 0 0 0">is pure evil :)</Heading>
+            </Appear>
+          </Slide>
+
+          <Slide notes="">
+            <Heading size={1} fit caps textColor="white" margin="-100px 0 0 0">Side</Heading>
+            <Heading size={3} fit caps textColor="white">Effects</Heading>
+          </Slide>
+
+          <Slide notes="">
+            <Heading size={1} fit caps textColor="white" margin="-100px 0 0 0">Pure</Heading>
+            <Heading size={3} fit caps textColor="white">Function</Heading>
           </Slide>
 
           <CodeSlide
             transition={[]}
-            lang="docker"
-            code={require("raw!../assets/client-Dockerfile")}
+            lang="js"
+            code={require("raw!../assets/code/pure-or-not.code")}
             ranges={[
-              { loc: [0, 14], title: "Frontend Dockerfile" },
-              { loc: [0, 1], title: "Base image" },
-              { loc: [3, 4], title: "Workdir" },
-              { loc: [5, 6], title: "Copy" },
-              { loc: [7, 9], title: "Build" },
-              { loc: [10, 11], title: "Ports" },
-              { loc: [11, 12], title: "Command" }
+              { loc: [0, 270], title: "IS IT PURE OR NOT?" },
+
+              { loc: [0, 3] },
+              { loc: [0, 3], title: "PURE" },
+              { loc: [0, 3], title: "PURE", note: "Just pure" },
+
+
+              { loc: [19, 20] },
+              { loc: [19, 20], title: "NOT PURE" },
+              { loc: [19, 20], title: "NOT PURE", note: "Each time different result" },
+
+
+              { loc: [36, 37] },
+              { loc: [36, 37], title: "NOT PURE" },
+              { loc: [36, 37], title: "NOT PURE", note: "I/O Operations" },
+
+
+              { loc: [59, 63] },
+              { loc: [59, 63], title: "NOT PURE" },
+              { loc: [59, 63], title: "NOT PURE", note: "State can cause different results" },
+
+
+              { loc: [85, 94] },
+              { loc: [85, 94], title: "PURE" },
+              { loc: [85, 94], title: "SO PURE!!" /*, image: "State can cause different results" */},
+
+
+              { loc: [114, 126] },
+              { loc: [114, 126], title: "PURE" },
+              { loc: [114, 126], title: "PURE", note: "Currying in action" },
+
+
+              { loc: [153, 164] },
+              { loc: [153, 164], title: "ALSO PURE" },
+
+
+              { loc: [194, 206] },
+              { loc: [194, 206], title: "IT DEPENDS" },
+              { loc: [194, 206], title: "IT DEPENDS", note: "Concat is pure, but inner function is not" },
             ]}
           />
-
-          <CodeSlide
-            transition={[]}
-            lang="docker"
-            code={require("raw!../assets/server-Dockerfile")}
-            ranges={[
-              { loc: [0, 14], title: "Backend Dockerfile" },
-              { loc: [0, 1], title: "Base image" },
-              { loc: [3, 4], title: "Workdir" },
-              { loc: [5, 6], title: "Copy" },
-              { loc: [6, 7], title: "Package installation" },
-              { loc: [9, 10], title: "Ports" },
-              { loc: [10, 11], title: "Command" }
-            ]}
-          />
-
-          <Slide bgColor="black">
-            <Heading size={1} textColor="white">
-              Building first image
-            </Heading>
-            <Heading size={2} fit textColor="white" textFont="Monospace" margin="50px 0px">
-              docker build -t our-first-docker-app .
-            </Heading>
-          </Slide>
-
-          <Slide bgColor="black">
-            <Heading size={1} textColor="white">
-              Running first container
-            </Heading>
-            <Heading size={2} fit textColor="white" textFont="Monospace" margin="50px 0px">
-              docker run -p 8080:8080 our-first-docker-app
-            </Heading>
-          </Slide>
-
-          <Slide bgColor="black">
-            <Heading size={1} textColor="white">
-              Debugging first container
-            </Heading>
-            <Heading size={2} fit textColor="white" textFont="Monospace" margin="50px 0px">
-              docker run -it our-first-docker-app /bin/bash
-            </Heading>
-          </Slide>
-
-          <Slide>
-            <Heading size={1} caps fit>
-              Docker compose
-            </Heading>
-          </Slide>
-
-          <CodeSlide
-            transition={[]}
-            lang="yaml"
-            code={require("raw!../assets/docker-compose.yml")}
-            ranges={[
-              { loc: [0, 100], title: "Docker Compose" },
-              { loc: [22, 100], title: "Database" },
-              { loc: [12, 22], title: "Backend" },
-              { loc: [2, 12], title: "Frontend" }
-            ]}
-          />
-
-          <Slide bgColor="black">
-            <Heading size={1} textColor="white">
-              Running docker-compose
-            </Heading>
-            <Heading size={2} fit textColor="white" textFont="Monospace" margin="50px 0px">
-              docker-compose up
-            </Heading>
-          </Slide>
-
-          <Slide>
-            <Heading size={1} textColor="white">
-              Last word
-            </Heading>
-          </Slide>
-
-          <Slide>
-            <Heading size={1} caps fit>
-              Dzięki :)
-            </Heading>
-          </Slide>
         </Deck>
       </Spectacle>
     );

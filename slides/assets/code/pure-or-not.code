@@ -1,0 +1,222 @@
+function f(x) {
+  return x + 3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Math.random
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+console.log
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var foo = 'bar baz buzzzz';
+function foobator() {
+  return foo;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function heat(mealsArray) {
+  return mealsArray.map(function(meal) {
+    return meal + '♨️';
+  });
+}
+heat([
+  'whoo thai',
+  'schabowy'
+]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function emojify(emoji) {
+  return function(string) {
+    return string + emoji;
+  }
+}
+
+var luckify = emojify('☘');
+[
+  'foo',
+  'bar',
+  'baz'
+].map(luckify);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function luckify() {
+  var emoji = '☘';
+  return function(string) {
+    return string + emoji;
+  }
+}
+[
+  'foo',
+  'bar',
+  'baz'
+].map(luckify());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function concat() {
+  var result = '';
+  return function(string) {
+    result += string;
+    return result;
+  }
+}
+[
+  'foo',
+  'bar',
+  'baz'
+].map(concat());
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ */
