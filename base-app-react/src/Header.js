@@ -1,56 +1,49 @@
-var $ = require('jquery');
+var React = require('react');
 
-function Header(nextProps) {
-  var props = {};
-  var prevProps;
-  var $el;
-  var $input;
-  var $toggleAll;
+class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: ''
+    };
+  }
 
-  function onKeyUp(e) {
-    if(event.which === 13) {
-      event.preventDefault();
-      props.addTodo(e.target.value);
-      $input.val('');
+  onInputChange(e) {
+    this.setState({
+      value: e.target.value
+    });
+  }
+
+  onToggle() {
+    this.props.toggleAll();
+  }
+
+  onKeyUp(e) {
+    if(e.which === 13) {
+      e.preventDefault();
+      this.props.addTodo(e.target.value);
+      this.setState({
+        value: ''
+      });
     }
   }
 
-  function onToggle() {
-    props.toggleAll();
+  render() {
+    return (
+      <header className="header">
+        <h1>todos</h1>
+        <input
+          onChange={this.onInputChange.bind(this)}
+          onKeyUp={this.onKeyUp.bind(this)}
+          className="new-todo"
+          placeholder="What needs to be done?">
+        <input
+          value={this.props.isToggled}
+          onChange={this.onToggle.bind(this)}
+          className="toggle-all" type="checkbox">
+      </header>
+    )
   }
-
-  function render(nextProps) {
-    prevProps = props;
-    props = nextProps;
-
-    $toggleAll.prop('checked', props.isToggled);
-  }
-
-  (function init() {
-    $el = $(
-      '<header class="header">' +
-        '<h1>todos</h1>' +
-        '<input class="new-todo" placeholder="What needs to be done?">' +
-        '<input class="toggle-all" type="checkbox">' +
-      '</header>'
-    );
-
-    $input = $el.find('.new-todo');
-    $toggleAll = $el.find('.toggle-all');
-
-    $input.on('keyup', onKeyUp);
-    $toggleAll.on('change', onToggle);
-
-    render(nextProps);
-  }());
-
-  return {
-    el: $el,
-    render: render,
-    destroy: function() {
-      $el.remove();
-    }
-  }
-};
+}
 
 module.exports = Header;

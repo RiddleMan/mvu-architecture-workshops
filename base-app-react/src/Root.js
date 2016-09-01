@@ -11,7 +11,7 @@ var connect = reactRedux.connect;
 
 var actions = require('./actions');
 
-var Root = function(props) {
+function Root(props) {
   return (
     <div>
       <Header

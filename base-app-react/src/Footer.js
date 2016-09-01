@@ -1,8 +1,8 @@
-var $ = require('jquery');
+var React = require('react');
 var actions = require('./actions');
 var FILTER_TYPES = actions.FILTER_TYPES;
 
-var Footer = function(props) {
+function Footer(props) {
   var filterAllClassName = 'filter-all ' +
     (props.filter === FILTER_TYPES.ALL ? 'selected' : '');
   var filterActiveClassName = 'filter-active ' +

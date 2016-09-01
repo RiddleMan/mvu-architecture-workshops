@@ -8,8 +8,8 @@ function Header(nextProps) {
   var $toggleAll;
 
   function onKeyUp(e) {
-    if(event.which === 13) {
-      event.preventDefault();
+    if(e.which === 13) {
+      e.preventDefault();
       props.addTodo(e.target.value);
       $input.val('');
     }
