@@ -523,4 +523,67 @@ describe('reducer()', function() {
       expect(actual.filter).to.be.not.equal(state.filter);
     });
   });
+
+  describe('CLEAR_COMPLETED', function() {
+    it('should remove completed items from todos', function() {
+      var action = {
+        type: CLEAR_COMPLETED
+      };
+      var state = {
+        todos: [{isCompleted: true},{isCompleted: false}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ALL,
+        isToggled: true,
+        activeTodosCount: 0
+      };
+
+      var actual = reducer(state, action);
+
+      expect(actual.todos).to.be.deep.equal([
+        {isCompleted: false}
+      ]);
+    });
+
+    it('should remove completed items from todosByFilter', function() {
+      var action = {
+        type: CLEAR_COMPLETED
+      };
+      var state = {
+        todos: [{isCompleted: true},{isCompleted: false}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ALL,
+        isToggled: true,
+        activeTodosCount: 0
+      };
+
+      var actual = reducer(state, action);
+
+      expect(actual.todosByFilter).to.be.deep.equal([
+        {isCompleted: false}
+      ]);
+    });
+
+    it('should change references of changed items', function() {
+      var action = {
+        type: CLEAR_COMPLETED,
+        filter: FILTER_TYPES.ALL
+      };
+      var state = {
+        todos: [{isCompleted: false, id: 0},{isCompleted: true, id: 1}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ALL,
+        isToggled: true,
+        activeTodosCount: 0
+      };
+
+      var actual = reducer(state, action);
+
+      expect(actual).to.be.not.equal(state);
+      expect(actual.todos).to.be.not.equal(state.todos);
+      expect(actual.todos[0]).to.be.equal(state.todos[0]);
+
+      expect(actual.todosByFilter).to.be.not.equal(state.todosByFilter);
+      expect(actual.todosByFilter[0]).to.be.equal(state.todos[0]);
+    });
+  });
 });
