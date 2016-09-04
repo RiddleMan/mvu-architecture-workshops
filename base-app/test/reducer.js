@@ -342,7 +342,7 @@ describe('reducer()', function() {
         id: 0
       };
       var state = {
-        todos: [{isCompleted: true, id: 0}],
+        todos: [{isCompleted: true, id: 0}, {isCompleted: true, id: 1}],
         todosByFilter: [],
         filter: FILTER_TYPES.ACTIVE,
         isToggled: true,
@@ -354,6 +354,74 @@ describe('reducer()', function() {
       expect(actual).to.be.not.equal(state);
       expect(actual.todos).to.be.not.equal(state.todos);
       expect(actual.todos[0]).to.be.not.equal(state.todos[0]);
+      expect(actual.todos[1]).to.be.equal(state.todos[1]); //NOTE: This one is different
+      expect(actual.todosByFilter).to.be.not.equal(state.todosByFilter);
+    });
+  });
+
+  describe('CHANGE_NAME', function() {
+    it('should change just name given in action', function() {
+      var action = {
+        type: CHANGE_NAME,
+        id: 1,
+        name: 'test'
+      };
+      var state = {
+        todos: [{isCompleted: true, id: 0}, {isCompleted: true, id: 1, name: 'foo'}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ALL,
+        isToggled: true,
+        activeTodosCount: 0
+      }
+
+      var actual = reducer(state, action);
+
+      expect(actual.todos).to.be.deep.equal([
+        {isCompleted: true, id: 0},
+        {isCompleted: true, id: 1, name: 'test'}]);
+    });
+
+    it('should change todosByFilter to respect changed name', function() {
+      var action = {
+        type: CHANGE_NAME,
+        id: 1,
+        name: 'test'
+      };
+      var state = {
+        todos: [{isCompleted: true, id: 0}, {isCompleted: true, id: 1, name: 'foo'}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ALL,
+        isToggled: true,
+        activeTodosCount: 0
+      }
+
+      var actual = reducer(state, action);
+
+      expect(actual.todosByFilter).to.be.deep.equal([
+        {isCompleted: true, id: 0},
+        {isCompleted: true, id: 1, name: 'test'}]);
+    });
+
+    it('should change references of changed objects', function() {
+      var action = {
+        type: CHANGE_NAME,
+        id: 1,
+        name: 'test'
+      };
+      var state = {
+        todos: [{isCompleted: true, id: 0}, {isCompleted: true, id: 1, name: 'foo'}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ACTIVE,
+        isToggled: true,
+        activeTodosCount: 0
+      }
+
+      var actual = reducer(state, action);
+
+      expect(actual).to.be.not.equal(state);
+      expect(actual.todos).to.be.not.equal(state.todos);
+      expect(actual.todos[0]).to.be.equal(state.todos[0]);
+      expect(actual.todos[1]).to.be.not.equal(state.todos[1]); //NOTE: This one is different
       expect(actual.todosByFilter).to.be.not.equal(state.todosByFilter);
     });
   });
