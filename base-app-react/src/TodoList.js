@@ -5,12 +5,12 @@ function TodoList(props) {
   return (
     <section className="main">
       <ul className="todo-list">
-        {props.todos.map(function(todo, idx) {
+        {props.todos.map(function(todo) {
           return <TodoItem
-            key={idx}
-            deleteTodo={props.deleteTodo.bind(null, idx)}
-            toggleComplete={props.toggleComplete.bind(null, idx)}
-            changeName={props.changeName.bind(null, idx)}
+            key={todo.id}
+            deleteTodo={props.deleteTodo.bind(null, todo.id)}
+            toggleComplete={props.toggleComplete.bind(null, todo.id)}
+            changeName={props.changeName.bind(null, todo.id)}
             name={todo.name}
             isCompleted={todo.isCompleted} />
         })}

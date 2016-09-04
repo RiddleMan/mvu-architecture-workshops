@@ -24,7 +24,7 @@ describe('reducer()', function() {
       todos: [],
       todosByFilter: [],
       filter: FILTER_TYPES.ALL,
-      isToggled: true,
+      isToggled: false,
       activeTodosCount: 0
     });
   });
@@ -43,12 +43,14 @@ describe('reducer()', function() {
     it('should add todo with given `name` and `isCompleted` equal `false`', function() {
       var action = {
         type: ADD_TODO,
-        name: 'test'
+        name: 'test',
+        id: 10
       };
 
       var actual = reducer(undefined, action);
 
       expect(actual.todos).to.be.deep.equal([{
+        id: 10,
         name: 'test',
         isCompleted: false
       }]);
@@ -57,13 +59,15 @@ describe('reducer()', function() {
     it('should include new todo in filtered results', function() {
       var action = {
         type: ADD_TODO,
-        name: 'test'
+        name: 'test',
+        id: 10
       };
 
       var actual = reducer(undefined, action);
 
       expect(actual.todosByFilter.length).to.be.equal(1);
       expect(actual.todosByFilter[0]).to.be.deep.equal({
+        id: 10,
         name: 'test',
         isCompleted: false
       });
@@ -72,12 +76,29 @@ describe('reducer()', function() {
     it('should increment `activeTodosCount`', function() {
       var action = {
         type: ADD_TODO,
-        name: 'test'
+        name: 'test',
+        id: 10
       };
 
       var actual = reducer(undefined, action);
 
       expect(actual.activeTodosCount).to.be.equal(1);
+    });
+
+    it('should add todo filtered list', function() {
+      var action = {
+        type: ADD_TODO,
+        name: 'test',
+        id: 10
+      };
+
+      var actual = reducer(undefined, action);
+
+      expect(actual.todosByFilter).to.be.deep.equal([{
+        id: 10,
+        isCompleted: false,
+        name: 'test'
+      }]);
     });
 
     it('should change references of all "touched" objects', function() {
@@ -137,6 +158,23 @@ describe('reducer()', function() {
       expect(actual.isToggled).to.be.false;
     });
 
+    it('should remove all todos from filtered list', function() {
+      var action = {
+        type: TOGGLE_ALL
+      };
+      var state = {
+        todos: [{ isCompleted: false }],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ACTIVE,
+        isToggled: false,
+        activeTodosCount: 0
+      }
+
+      var actual = reducer(state, action);
+
+      expect(actual.todosByFilter).to.be.deep.equal([]);
+    });
+
     it('should change references of all changed objects', function() {
       var action = {
         type: TOGGLE_ALL
@@ -167,7 +205,7 @@ describe('reducer()', function() {
         id: 1
       };
       var state = {
-        todos: [{isCompleted: true}, {isCompleted: true}],
+        todos: [{isCompleted: true, id: 0}, {isCompleted: true, id: 1}],
         todosByFilter: [],
         filter: FILTER_TYPES.ALL,
         isToggled: true,
@@ -176,10 +214,10 @@ describe('reducer()', function() {
 
       var actual = reducer(state, action);
 
-      expect(actual.todos).to.be.deep.equal([{isCompleted: true}]);
+      expect(actual.todos).to.be.deep.equal([{isCompleted: true, id: 0}]);
     });
 
-    it('should not rmeove when there is no todo with specified `id`', function() {
+    it('should not remove when there is no todo with specified `id`', function() {
       var action = {
         type: DELETE_TODO,
         id: 10
@@ -195,6 +233,27 @@ describe('reducer()', function() {
       var actual = reducer(state, action);
 
       expect(actual.todos).to.be.deep.equal([]);
+    });
+
+    it('should remove todo from `todosByFilter`', function() {
+      var action = {
+        type: DELETE_TODO,
+        id: 1
+      };
+      var state = {
+        todos: [{isCompleted: true, id: 0 }, {isCompleted: true, id: 1}],
+        todosByFilter: [{isCompleted: true, id: 0 }, {isCompleted: true, id: 1}],
+        filter: FILTER_TYPES.ALL,
+        isToggled: true,
+        activeTodosCount: 0
+      }
+
+      var actual = reducer(state, action);
+
+      expect(actual.todosByFilter).to.be.deep.equal([{
+        id: 0,
+        isCompleted: true
+      }]);
     });
 
     it('should change references of all changed objects', function() {
@@ -216,6 +275,86 @@ describe('reducer()', function() {
       expect(actual.todos).to.be.not.equal(state.todos);
       expect(actual.todos[0]).to.be.equal(state.todos[0]);
       expect(actual.activeTodosCount).to.be.equal(state.activeTodosCount);
+      expect(actual.todosByFilter).to.be.not.equal(state.todosByFilter);
+    });
+  });
+
+  describe('TOGGLE_COMPLETE', function() {
+    it('should change element complete status to opposite value', function() {
+      var action = {
+        type: TOGGLE_COMPLETE,
+        id: 1
+      };
+      var state = {
+        todos: [{isCompleted: true, id: 0}, {isCompleted: true, id: 1}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ALL,
+        isToggled: true,
+        activeTodosCount: 0
+      }
+
+      var actual = reducer(state, action);
+
+      expect(actual.todos).to.be.deep.equal([
+        {isCompleted: true, id: 0},
+        {isCompleted: false, id: 1}]);
+    });
+
+    it('should change activeTodosCount to value-=1', function() {
+      var action = {
+        type: TOGGLE_COMPLETE,
+        id: 1
+      };
+      var state = {
+        todos: [{isCompleted: true, id: 0}, {isCompleted: true, id: 1}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ALL,
+        isToggled: true,
+        activeTodosCount: 0
+      }
+
+      var actual = reducer(state, action);
+
+      expect(actual.activeTodosCount).to.be.equal(1);
+    });
+
+    it('should change todosByFilter to respect only active items', function() {
+      var action = {
+        type: TOGGLE_COMPLETE,
+        id: 1
+      };
+      var state = {
+        todos: [{isCompleted: true, id: 0}, {isCompleted: true, id: 1}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ACTIVE,
+        isToggled: true,
+        activeTodosCount: 0
+      }
+
+      var actual = reducer(state, action);
+
+      expect(actual.todosByFilter).to.be.deep.equal([{isCompleted: false, id: 1}]);
+    });
+
+    it('should change references of changed objects', function() {
+      var action = {
+        type: TOGGLE_COMPLETE,
+        id: 0
+      };
+      var state = {
+        todos: [{isCompleted: true, id: 0}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ACTIVE,
+        isToggled: true,
+        activeTodosCount: 0
+      }
+
+      var actual = reducer(state, action);
+
+      expect(actual).to.be.not.equal(state);
+      expect(actual.todos).to.be.not.equal(state.todos);
+      expect(actual.todos[0]).to.be.not.equal(state.todos[0]);
+      expect(actual.todosByFilter).to.be.not.equal(state.todosByFilter);
     });
   });
 });

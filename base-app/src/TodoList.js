@@ -18,11 +18,11 @@ function TodoList(nextProps) {
     });
 
     // create new ones
-    _instances = props.todos.map(function(todo, idx) {
+    _instances = props.todos.map(function(todo) {
       return TodoItem({
-        deleteTodo: props.deleteTodo.bind(null, idx),
-        toggleComplete: props.toggleComplete.bind(null, idx),
-        changeName: props.changeName.bind(null, idx),
+        deleteTodo: props.deleteTodo.bind(null, todo.id),
+        toggleComplete: props.toggleComplete.bind(null, todo.id),
+        changeName: props.changeName.bind(null, todo.id),
         name: todo.name,
         isCompleted: todo.isCompleted
       });

@@ -46,6 +46,7 @@ function reducer(state, action) {
     case ADD_TODO:
       todos = state.todos
         .concat([{
+          id: action.id,
           isCompleted: false,
           name: action.name
         }]);
@@ -71,8 +72,8 @@ function reducer(state, action) {
       });
 
     case DELETE_TODO:
-      todos = state.todos.filter(function(todo, idx) {
-        return action.id !== idx;
+      todos = state.todos.filter(function(todo) {
+        return action.id !== todo.id;
       });
 
       return $.extend({}, state, {
@@ -82,8 +83,8 @@ function reducer(state, action) {
       });
 
     case TOGGLE_COMPLETE:
-      todos = state.todos.map(function(todo, idx) {
-        if(action.id !== idx)
+      todos = state.todos.map(function(todo) {
+        if(action.id !== todo.id)
           return todo;
 
         return $.extend({}, todo, {
@@ -98,8 +99,8 @@ function reducer(state, action) {
       });
 
     case CHANGE_NAME:
-      todos = state.todos.map(function(todo, idx) {
-        if(action.id !== idx)
+      todos = state.todos.map(function(todo) {
+        if(action.id !== todo.id)
           return todo;
 
         return $.extend({}, todo, {
@@ -120,7 +121,7 @@ function reducer(state, action) {
       });
 
     case CLEAR_COMPLETED:
-      todos = state.todos.filter(function(todo, idx) {
+      todos = state.todos.filter(function(todo) {
         return !todo.isCompleted;
       });
 

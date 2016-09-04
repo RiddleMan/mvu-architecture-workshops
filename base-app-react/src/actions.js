@@ -12,10 +12,21 @@ var FILTER_TYPES = {
   COMPLETED: 'COMPLETED'
 };
 
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
+
 function addTodo(name) {
   return {
     type: ADD_TODO,
-    name: name
+    name: name,
+    id: guid()
   };
 }
 

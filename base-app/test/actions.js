@@ -10,10 +10,16 @@ describe('actions', function() {
     });
 
     it('should return object with `name` given as first argument', function() {
-      var name = 'testName'
+      var name = 'testName';
       var actual = actions.addTodo(name);
 
       expect(actual.name).to.be.equal(name);
+    });
+
+    it('should add `id` field to action which is automaticly generated', function() {
+      var actual = actions.addTodo();
+
+      expect(typeof actual.id).to.be.equal('string');
     });
   });
 
