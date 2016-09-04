@@ -425,4 +425,102 @@ describe('reducer()', function() {
       expect(actual.todosByFilter).to.be.not.equal(state.todosByFilter);
     });
   });
+
+  describe('CHANGE_FILTER', function() {
+    it('should change filter property', function() {
+      var action = {
+        type: CHANGE_FILTER,
+        filter: FILTER_TYPES.ALL
+      };
+      var state = {
+        todos: [],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ACTIVE,
+        isToggled: true,
+        activeTodosCount: 0
+      };
+
+      var actual = reducer(state, action);
+
+      expect(actual.filter).to.be.equal(FILTER_TYPES.ALL);
+    });
+
+    it('should show all todos as todosByFilter', function() {
+      var action = {
+        type: CHANGE_FILTER,
+        filter: FILTER_TYPES.ALL
+      };
+      var state = {
+        todos: [{isCompleted: true},{isCompleted: false}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ACTIVE,
+        isToggled: true,
+        activeTodosCount: 0
+      };
+
+      var actual = reducer(state, action);
+
+      expect(actual.todosByFilter).to.be.deep.equal([{isCompleted: true},{isCompleted: false}]);
+    });
+
+    it('should show active todos as todosByFilter', function() {
+      var action = {
+        type: CHANGE_FILTER,
+        filter: FILTER_TYPES.ACTIVE
+      };
+      var state = {
+        todos: [{isCompleted: true, id: 0},{isCompleted: false, id: 1}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ALL,
+        isToggled: true,
+        activeTodosCount: 0
+      };
+
+      var actual = reducer(state, action);
+
+      expect(actual.todosByFilter).to.be.deep.equal([{isCompleted: false, id: 1}]);
+    });
+
+    it('should show completed todos as todosByFilter', function() {
+      var action = {
+        type: CHANGE_FILTER,
+        filter: FILTER_TYPES.COMPLETED
+      };
+      var state = {
+        todos: [{isCompleted: true, id: 0},{isCompleted: false, id: 1}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.ALL,
+        isToggled: true,
+        activeTodosCount: 0
+      };
+
+      var actual = reducer(state, action);
+
+      expect(actual.todosByFilter).to.be.deep.equal([{isCompleted: true, id: 0}]);
+    });
+
+    it('should change references of changed items', function() {
+      var action = {
+        type: CHANGE_FILTER,
+        filter: FILTER_TYPES.ALL
+      };
+      var state = {
+        todos: [{isCompleted: true, id: 0},{isCompleted: false, id: 1}],
+        todosByFilter: [],
+        filter: FILTER_TYPES.COMPLETED,
+        isToggled: true,
+        activeTodosCount: 0
+      };
+
+      var actual = reducer(state, action);
+
+      expect(actual).to.be.not.equal(state);
+      expect(actual.todosByFilter).to.be.not.equal(state.todosByFilter);
+
+      expect(actual.todosByFilter[0]).to.be.equal(state.todos[0]);
+      expect(actual.todosByFilter[1]).to.be.equal(state.todos[1]);
+
+      expect(actual.filter).to.be.not.equal(state.filter);
+    });
+  });
 });
