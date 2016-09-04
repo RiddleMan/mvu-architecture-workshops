@@ -217,6 +217,10 @@ export default class Presentation extends React.Component {
             <Heading size={1} fit caps textColor="white">Immutability</Heading>
           </Slide>
 
+          <Slide notes="">
+            <Heading size={1} fit caps textColor="white">SUMMARY</Heading>
+          </Slide>
+
           <CodeSlide
             transition={[]}
             lang="js"
@@ -267,15 +271,6 @@ export default class Presentation extends React.Component {
             <Heading size={1} fit caps textColor="white">Architecture</Heading>
           </Slide>
 
-          <Slide notes="">
-            <Heading size={1} fit caps textColor="white">REDUX</Heading>
-          </Slide>
-
-          <Slide notes="" bgColor="#f5f4f0">
-            <Image height="600px" src={images.reduxFlow} />
-            <Link href="http://staltz.com/unidirectional-user-interface-architectures.html" target="_blank">http://staltz.com/unidirectional-user-interface-architectures.html</Link>
-          </Slide>
-
           <Slide notes="I mentioned that state is evil so we need to fight with him.">
             <Heading size={1} fit caps textColor="white">REDUX</Heading>
           </Slide>
@@ -288,6 +283,11 @@ export default class Presentation extends React.Component {
               <Appear><ListItem>Creator proved to community that enables lot of tooling</ListItem></Appear>
               <Appear><ListItem>Most popular across flux-like architectures</ListItem></Appear>
             </List>
+          </Slide>
+
+          <Slide notes="" bgColor="#f5f4f0">
+            <Image height="600px" src={images.reduxFlow} />
+            <Link href="http://staltz.com/unidirectional-user-interface-architectures.html" target="_blank">http://staltz.com/unidirectional-user-interface-architectures.html</Link>
           </Slide>
 
           <Slide notes="">
@@ -364,6 +364,29 @@ export default class Presentation extends React.Component {
                 }
               `}
             />
+          </Slide>
+
+          <Slide notes="">
+            <Heading size={1} fit caps textColor="white">SECOND</Heading>
+            <Heading size={1} fit caps textColor="white">EXERCISE</Heading>
+          </Slide>
+
+          <Slide notes="">
+            <Heading size={1} fit caps textColor="white">SUMMARY</Heading>
+          </Slide>
+
+          <Slide notes="">
+            <Heading size={1} fit caps textColor="white">THIRD</Heading>
+            <Heading size={1} fit caps textColor="white">EXERCISE</Heading>
+          </Slide>
+
+          <Slide notes="">
+            <Heading size={1} fit caps textColor="white">SUMMARY</Heading>
+          </Slide>
+
+          <Slide notes="">
+            <Heading size={1} fit caps textColor="white">THANK YOU</Heading>
+            <Heading size={1} textSize={140} caps textColor="white">:)</Heading>
           </Slide>
         </Deck>
       </Spectacle>
