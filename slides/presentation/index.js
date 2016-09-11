@@ -16,8 +16,9 @@ import {
   Table,
   TableRow,
   TableItem,
-  Fit,
-  Text
+  BlockQuote,
+  Cite,
+  Quote
 } from "spectacle";
 import CodeSlide from "spectacle-code-slide";
 
@@ -38,7 +39,11 @@ const images = {
   screwdriver: require("../assets/images/screwdriver.jpg"),
   mapFilterReduce: require("../assets/images/map-filter-reduce-emoji.png"),
   pipes: require("../assets/images/pipes-analogy.jpg"),
-  reduxFlow: require("../assets/images/redux.jpg")
+  reduxFlow: require("../assets/images/redux.jpg"),
+  randomImpl: require("../assets/images/random_impl.png"),
+  soPure: require("../assets/images/so_pure.jpg"),
+  fbPost: require("../assets/images/fb-post.png"),
+  fbPre: require("../assets/images/fb-pre.png")
 };
 
 preloader(images);
@@ -52,7 +57,7 @@ export default class Presentation extends React.Component {
     return (
       <Spectacle theme={theme}>
         <Deck transition={["slide"]} transitionDuration={500} progress="number">
-          <Slide bgImage={images.cover} notes="tell about that is your opinion dumbass. Some things will be obvious">
+          <Slide bgImage={images.cover}>
             <Heading size={1} fit caps>
               MVU Architecture
             </Heading>
@@ -70,7 +75,15 @@ export default class Presentation extends React.Component {
             </Heading>
           </Slide>
 
-          <Slide>
+          <Slide
+            notes={`
+              <ul>
+                <li>Your own opinion</li>
+                <li>Obvious</li>
+                <li>Workshops</li>
+              </ul>
+            `}
+          >
             <Heading size={1} fit caps>
               Rules
             </Heading>
@@ -78,7 +91,7 @@ export default class Presentation extends React.Component {
 
           <Slide notes="">
             <Heading size={1} caps>
-              What's our today achievement?
+              What's the goal?
             </Heading>
             <List>
               <Appear><ListItem>Learn how to split code</ListItem></Appear>
@@ -88,43 +101,88 @@ export default class Presentation extends React.Component {
             </List>
           </Slide>
 
-          <Slide notes="">
+          <Slide
+            notes={`
+              <ul>
+                <li>Easy app</li>
+                <li>Allows to focus on imporant things</li>
+              </ul>
+            `}
+          >
             <Heading size={1} caps>
-              What's our today achievement?
+              What's the goal?
             </Heading>
             <Link target="_blank" href="http://todomvc.com">
-              <Heading size={3} caps>
+              <Heading size={3} caps textColor="white" padding="30px 0">
                 TODO MVC
               </Heading>
             </Link>
           </Slide>
 
-          <Slide notes="">
+          <Slide
+            notes={`
+              <ul>
+                <li>Easy app</li>
+                <li>Allows to focus on imporant things</li>
+              </ul>
+            `}
+          >
             <Heading size={1} caps fill>
-              What is a good architecture?
+              What makes architecture good?
             </Heading>
           </Slide>
 
-          <Slide notes="nails">
-            <Heading size={1} caps>Right tool to job</Heading>
+          <Slide
+            notes={`
+              <ul>
+                <li>Nails example</li>
+                <li>When we have only one nail to hit it's ok</li>
+                <li>But when we have more... it's getting complicated</li>
+                <li>Pareto rule - layer architecture</li>
+                <li>Can think about application as a domain instead of architecture</li>
+              </ul>
+            `}
+          >
+            <Heading size={1} caps>Right tool for the job</Heading>
             <Table>
               <TableRow>
                 <TableItem><Appear><Image width="400px" src={images.hammer}/></Appear></TableItem>
-                <TableItem><Heading size={3}>vs</Heading></TableItem>
+                <TableItem><Heading size={3} textColor="white">vs</Heading></TableItem>
                 <TableItem><Appear><Image width="400px" src={images.screwdriver}/></Appear></TableItem>
               </TableRow>
             </Table>
           </Slide>
 
-          <Slide notes="">
+          <Slide
+            notes={`
+              <ul>
+                <li>Easy to replace</li>
+                <li>Lower risk of project. Client cames back.</li>
+                <li>Hard to convince for refactor</li>
+              </ul>
+            `}
+          >
             <Heading size={1} fit caps>Reduces a risk</Heading>
           </Slide>
 
-          <Slide notes="">
+          <Slide
+            notes={`
+              <ul>
+                <li>Easy to replace</li>
+                <li>Allows "hack"-ing</li>
+              </ul>
+            `}
+          >
             <Heading size={1} fit caps>Flexible</Heading>
           </Slide>
 
-          <Slide notes="">
+          <Slide
+            notes={`
+              <ul>
+                <li>Low risk projects they don't need. Refactor</li>
+              </ul>
+            `}
+          >
             <Heading size={1} fit caps>Testable</Heading>
           </Slide>
 
@@ -132,12 +190,24 @@ export default class Presentation extends React.Component {
             <Heading size={1} fit caps>EASY!!</Heading>
           </Slide>
 
-          <Slide notes="">
+          <Slide
+            notes={`
+              <ul>
+                <li>Easy to introduce new people to the project</li>
+              </ul>
+            `}
+          >
             <Heading size={1} caps><span>{"and... "}</span></Heading>
             <Heading size={3} fit caps textColor="white"><Appear><span>even EASIER!!</span></Appear></Heading>
           </Slide>
 
-          <Slide notes="">
+          <Slide
+            notes={`
+              <ul>
+                <li>I'd like to explain some concepts before moving forward</li>
+              </ul>
+            `}
+          >
             <Heading size={3} fit caps textColor="white">Functional</Heading>
             <Heading size={3} fit caps textColor="white">programming</Heading>
             <Appear>
@@ -145,25 +215,62 @@ export default class Presentation extends React.Component {
             </Appear>
           </Slide>
 
-          <Slide notes="">
+          <Slide
+            notes={`
+              <ul>
+                <li>It's all about Math</li>
+                <li>Lambda calculus/Group theory</li>
+                <li>Mathematicians are strict. There is no place for mistakes</li>
+              </ul>
+            `}
+          >
             <Heading size={1} textSize="33vh" textColor="white" textFont="cursive">f(x)</Heading>
           </Slide>
 
-          <Slide notes="">
+          <Slide
+            notes={`
+              <ul>
+                <li>Evil. It causes breaks in our programs.</li>
+                <li>Computer hangs. And we are clearing a state. There is no single place where we can debug</li>
+                <li>How to manage state</li>
+              </ul>
+            `}
+          >
             <Heading size={1} fit caps textColor="white">State</Heading>
             <Appear>
               <Heading size={5} textColor="white" padding="70px 0 0 0">is pure evil :)</Heading>
             </Appear>
           </Slide>
 
-          <Slide notes="">
+          <Slide
+            notes={`
+              <ul>
+                <li>When function causes some I/O</li>
+                <li>When function sets sth outside her scope</li>
+              </ul>
+            `}
+          >
             <Heading size={1} fit caps textColor="white" margin="-100px 0 0 0">Side</Heading>
             <Heading size={3} fit caps textColor="white">Effects</Heading>
           </Slide>
 
-          <Slide notes="">
+          <Slide>
             <Heading size={1} fit caps textColor="white" margin="-100px 0 0 0">Pure</Heading>
             <Heading size={3} fit caps textColor="white">Function</Heading>
+          </Slide>
+
+          <Slide>
+            <BlockQuote>
+              <Quote textColor="white" textSize="50px">The function always evaluates the same result value given the same argument value(s). The function result value cannot depend on any hidden information or state that may change while program execution proceeds or between different executions of the program, nor can it depend on any external input from I/O devices</Quote>
+              <Cite>Wikipedia</Cite>
+            </BlockQuote>
+          </Slide>
+
+          <Slide>
+            <BlockQuote>
+              <Quote textColor="white" textSize="50px">Evaluation of the result does not cause any semantically observable side effect or output, such as mutation of mutable objects or output to I/O devices</Quote>
+              <Cite>Wikipedia</Cite>
+            </BlockQuote>
           </Slide>
 
           <CodeSlide
@@ -181,6 +288,7 @@ export default class Presentation extends React.Component {
               { loc: [19, 20] },
               { loc: [19, 20], title: "NOT PURE" },
               { loc: [19, 20], title: "NOT PURE", note: "Each time different result" },
+              { loc: [19, 20], image: images.randomImpl },
 
 
               { loc: [36, 37] },
@@ -195,7 +303,8 @@ export default class Presentation extends React.Component {
 
               { loc: [85, 94] },
               { loc: [85, 94], title: "PURE" },
-              { loc: [85, 94], title: "SO PURE!!" /*, image: "State can cause different results" */},
+              { loc: [85, 94], title: "SO PURE!!"},
+              { loc: [85, 94], image: images.soPure },
 
 
               { loc: [114, 126] },
@@ -213,12 +322,15 @@ export default class Presentation extends React.Component {
             ]}
           />
 
-          <Slide notes="">
+          <Slide
+            notes={`
+              <ul>
+                <li>We treat all objects like values</li>
+                <li>If there is even small change whole reference is changing</li>
+              </ul>
+            `}
+          >
             <Heading size={1} fit caps textColor="white">Immutability</Heading>
-          </Slide>
-
-          <Slide notes="">
-            <Heading size={1} fit caps textColor="white">SUMMARY</Heading>
           </Slide>
 
           <CodeSlide
@@ -243,13 +355,23 @@ export default class Presentation extends React.Component {
             <Heading size={1} fit caps textColor="white">EXERCISE</Heading>
           </Slide>
 
+          <Slide notes="">
+            <Heading size={1} fit caps textColor="white">SUMMARY</Heading>
+            <List>
+              <Appear><ListItem>we know how to keep our objects immutable</ListItem></Appear>
+              <Appear><ListItem>we know how to use basic map/filter functions</ListItem></Appear>
+              <Appear><ListItem>we know how to use apply default properties</ListItem></Appear>
+              <Appear><ListItem>🎂 npm test is v. usefull</ListItem></Appear>
+            </List>
+          </Slide>
+
           <Slide bgColor="white" bgImage={images.pipes} />
 
           <Slide notes="">
             <Heading size={1} caps textColor="white">MOAR!</Heading>
             <List>
               <Appear><ListItem>Monad</ListItem></Appear>
-              <Appear><ListItem>"immutable auto-curried iteratee-first data-last methods" lodash</ListItem></Appear>
+              <Appear><ListItem>"immutable auto-curried iteratee-first data-last methods" - lodash</ListItem></Appear>
               <Appear><ListItem>Pattern matching</ListItem></Appear>
               <Appear><ListItem>Currying</ListItem></Appear>
               <Appear><ListItem>Recursion</ListItem></Appear>
@@ -259,23 +381,52 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide>
-            <Heading size={1} fit caps textColor="white">Our achievement</Heading>
+            <Heading size={1} fit caps textColor="white">Our goal</Heading>
           </Slide>
 
           <Slide>
             <Link href="http://todomvc.com" target="_blank"><Heading size={1} fit caps textColor="white">TODO MVC</Heading></Link>
           </Slide>
 
-          <Slide notes="">
+          <Slide
+            notes={`
+              <ul>
+                <li>Facebook presents in 2014</li>
+                <li>Unidirectional data flow</li>
+                <li>Solves problem presented by FB. Multiple places which uses same data</li>
+                <li>Much different than MVC</li>
+              </ul>
+            `}
+          >
             <Heading size={1} fit caps textColor="white">Flux</Heading>
             <Heading size={1} fit caps textColor="white">Architecture</Heading>
           </Slide>
 
-          <Slide notes="I mentioned that state is evil so we need to fight with him.">
+          <Slide
+            notes={`
+              <ul>
+                <li>All about state management</li>
+                <li>Inspired by Elm, created by Dan Abramov <3</li>
+                <li>Dan presented a lot of tooling, React Hot Loader, Time debugger etc.</li>
+                <li>Enforces functional paradigm</li>
+                <li>V. easy to write, but I don't recommend</li>
+              </ul>
+            `}
+          >
             <Heading size={1} fit caps textColor="white">REDUX</Heading>
           </Slide>
 
-          <Slide notes="">
+          <Slide
+            notes={`
+              <ul>
+                <li>All about state management</li>
+                <li>Inspired by Elm, created by Dan Abramov <3</li>
+                <li>Dan presented a lot of tooling, React Hot Loader, Time debugger etc.</li>
+                <li>Enforces functional paradigm</li>
+                <li>V. easy to write, but I don't recommend</li>
+              </ul>
+            `}
+          >
             <Heading size={1} fit caps textColor="white">Redux</Heading>
             <List>
               <Appear><ListItem>Elm inspired</ListItem></Appear>
@@ -285,12 +436,28 @@ export default class Presentation extends React.Component {
             </List>
           </Slide>
 
-          <Slide notes="" bgColor="#f5f4f0">
+          <Slide
+            notes={`
+              <ul>
+                <li>Talk about data flow in app</li>
+              </ul>
+            `}
+            bgColor="#f5f4f0"
+          >
             <Image height="600px" src={images.reduxFlow} />
             <Link href="http://staltz.com/unidirectional-user-interface-architectures.html" target="_blank">http://staltz.com/unidirectional-user-interface-architectures.html</Link>
           </Slide>
 
-          <Slide notes="">
+          <Slide
+            notes={`
+              <ul>
+                <li>Plain object</li>
+                <li>Action creators later</li>
+                <li>Represents minimal object that can cause change in store</li>
+                <li>It is passed to reducers</li>
+              </ul>
+            `}
+          >
             <Heading size={1} caps textColor="white">Action</Heading>
             <CodePane
               textSize="25px"
@@ -307,7 +474,16 @@ export default class Presentation extends React.Component {
             />
           </Slide>
 
-          <Slide notes="">
+          <Slide
+            notes={`
+              <ul>
+                <li>Plain object</li>
+                <li>Immutable</li>
+                <li>Read-only</li>
+                <li>Keeps all major states in app</li>
+              </ul>
+            `}
+          >
             <Heading size={1} caps textColor="white">State</Heading>
             <CodePane
               textSize="25px"
@@ -373,6 +549,19 @@ export default class Presentation extends React.Component {
 
           <Slide notes="">
             <Heading size={1} fit caps textColor="white">SUMMARY</Heading>
+            <List>
+              <Appear><ListItem>we know how to keep our state in one global object</ListItem></Appear>
+              <Appear><ListItem>we know how data are flowing across Flow loop</ListItem></Appear>
+              <Appear><ListItem>we know how structure redux code</ListItem></Appear>
+            </List>
+          </Slide>
+
+          <Slide>
+            <Image height="600px" src={images.fbPre} />
+          </Slide>
+
+          <Slide>
+            <Image height="600px" src={images.fbPost} />
           </Slide>
 
           <Slide notes="">
@@ -382,6 +571,11 @@ export default class Presentation extends React.Component {
 
           <Slide notes="">
             <Heading size={1} fit caps textColor="white">SUMMARY</Heading>
+            <List>
+              <Appear><ListItem>we know how to connect View to store</ListItem></Appear>
+              <Appear><ListItem>we know how split UI into multiple Components</ListItem></Appear>
+              <Appear><ListItem>we know how to keep everything simple ♥️</ListItem></Appear>
+            </List>
           </Slide>
 
           <Slide notes="">
