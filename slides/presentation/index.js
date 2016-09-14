@@ -556,6 +556,23 @@ export default class Presentation extends React.Component {
             </List>
           </Slide>
 
+          <Slide
+            notes={`
+              <ul>
+                <li>It't hot approach now</li>
+                <li>Angular 2/Ember/React are proving that is correct way</li>
+                <li>Composition makes components composable</li>
+              </ul>
+            `}
+          >
+            <Heading size={1} fit caps textColor="white">COMPONENTS</Heading>
+          </Slide>
+
+          <Slide>
+            <Heading size={1} fit caps textColor="white">REAL WORLD</Heading>
+            <Heading textSize="40vh" caps textColor="white">APP</Heading>
+          </Slide>
+
           <Slide>
             <Image height="600px" src={images.fbPre} />
           </Slide>
