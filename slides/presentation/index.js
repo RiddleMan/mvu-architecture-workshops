@@ -43,7 +43,8 @@ const images = {
   randomImpl: require("../assets/images/random_impl.png"),
   soPure: require("../assets/images/so_pure.jpg"),
   fbPost: require("../assets/images/fb-post.png"),
-  fbPre: require("../assets/images/fb-pre.png")
+  fbPre: require("../assets/images/fb-pre.png"),
+  intro: require("../assets/images/intro.jpg")
 };
 
 preloader(images);
@@ -87,6 +88,10 @@ export default class Presentation extends React.Component {
             <Heading size={1} fit caps>
               Rules
             </Heading>
+          </Slide>
+
+          <Slide>
+            <Image height="600px" src={images.intro} />
           </Slide>
 
           <Slide notes="">
